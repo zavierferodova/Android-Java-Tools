@@ -9,7 +9,7 @@ This tools use for compile and run Java Command Line Application via Terminal Em
 4. Finnaly Java can be executed on Android with dalvikvm.
 
 ## Installation
-Run command `bash install.sh` to install required dependencies.
+Run command `bash install` to install required dependencies.
 
 ## The App
 
