@@ -2,4 +2,4 @@
 chmod +x myjavatools
 cp myjavatools /data/data/com.termux/files/usr/bin
 pkg update
-pkg install ecj && pkg install dx && pkg install zip && pkg install unzip && pkg install sed
+pkg install ecj dx zip unzip sed
