@@ -1,0 +1,9 @@
+#!/bin/bash
+
+termux_bin=/data/data/com.termux/files/usr/bin
+
+if [[ ! "No such file or directory" == *"$(ls myjavatools)"* ]]; then
+ rm $termux_bin/myjavatools
+fi
+
+echo "Uninstall completed!"

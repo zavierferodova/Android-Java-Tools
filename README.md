@@ -13,4 +13,4 @@ Run command `bash Install.sh` to install required dependencies.
 
 ## The App
 
-![Screenshoot](https://github.com/zavierferodova/Android-Java-Tools/blob/master/media/Screenshot.png?raw=true)
+![Screenshoot](https://github.com/zavierferodova/Android-Java-Tools/blob/master/media/Screenshot.jpg?raw=true)

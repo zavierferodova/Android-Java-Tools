@@ -1,0 +1,90 @@
+#!/bin/bash
+
+banner() {
+ echo " __  __             _                    _____           _        "
+ echo "|  \/  |_   _      | | __ ___   ____ _  |_   _|__   ___ | |___    "
+ echo "| |\/| | | | |  _  | |/ _' \ \ / / _' |   | |/ _ \ / _ \| / __|   "
+ echo "| |  | | |_| | | |_| | (_| |\ V / (_| |   | | (_) | (_) | \__ \   "
+ echo "|_|  |_|\__, |  \___/ \__,_| \_/ \__,_|   |_|\___/ \___/|_|___/   "
+ echo "        |___/                                                     "
+ echo "=============================================================== "
+ echo -e "                                      Coded By: Zavier Ferodova\n"
+}
+
+pause() {
+ read -s -n 1 -p "Press any key to continue . . ."
+}
+
+load() {
+ clear
+ banner
+ current_dir=$(pwd)
+ echo "Active directory :"
+ echo -e "$current_dir\n"
+ echo "Menu :"
+ echo "[1] Compile Java Files"
+ echo "[2] Make Dex File"
+ echo "[3] Delete Classes File"
+ echo "[4] Run Program"
+ echo "[#] Exit"
+ echo "========================="
+ echo -n "-> "
+ read Menu
+
+ if [ $Menu = "1" ]; then
+        clear
+        banner
+        java_files=$(find $current_dir -name \*.java)
+	echo "Compiling..."
+        ecj $java_files
+	echo "Finish"
+        pause
+        load
+ elif [ $Menu = "2" ]; then
+        clear
+        banner
+        class_files=$(find $current_dir -name \*.class)
+        if [[ "" == *"$class_files"* ]]; then
+              echo -e "Please compile java file frist !\n"
+              pause
+              load
+        fi
+
+        echo -e "\nThis process will make output .jar and .dex files";
+        echo -n "Dex filename : "
+        read filename
+
+        zip -r "$filename.jar" . -x \*.java
+        dx --dex --output "$filename.dex" "$filename.jar"
+        pause
+        load
+ elif [ $Menu = "3" ]; then
+        clear
+        banner
+        class_files=$(find $current_dir -name \*.class)
+        rm $class_files
+	echo "Classes file deleted!"
+        pause
+        load
+ elif [ $Menu = "4" ]; then
+        clear
+        banner
+	echo "Run with : [file.dex] [MainClass]"
+	echo -e "Example  : hello.dex Main\n"
+	echo "List of dex file :"
+	listing=$(find $(pwd) -name \*.dex)
+	echo $listing | sed "s|^$current_dir/||"
+        echo -n -e "\n-> "
+        read input
+	clear
+        dalvikvm -cp $input
+ elif [ $Menu = "#" ]; then
+        exit
+ else
+        echo -e "\nSorry, system doesn't reconigze your input";
+        pause
+        load
+ fi
+}
+
+load
